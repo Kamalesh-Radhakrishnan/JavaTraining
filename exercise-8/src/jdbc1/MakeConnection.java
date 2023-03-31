@@ -1,17 +1,27 @@
 package jdbc1;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;//
+import java.sql.Statement;
+
+/**
+ * @author Kamalesh
+ *
+ */
 class MakeConnection {
-	Connection con; Statement stmt; ResultSet rs; MakeConnection() {
-		try{
+	
+	private final String EMPTABLE = "emp";
+	Statement stmt; 
+	ResultSet rs; 
+	
+	MakeConnection() {
+		try(Connection con= DriverManager.getConnection("jdbc:mysql://localhost/practicedb","root","kamalesh2202@cdw");){
 			Class.forName("com.mysql.cj.jdbc.Driver");
-			con= DriverManager.getConnection("jdbc:mysql://localhost/practicedb","root","kamalesh2202@cdw");
 			stmt = con.createStatement();
-			rs = stmt.executeQuery("Select * from emp"); 
+			rs = stmt.executeQuery("select * from " + EMPTABLE); 
 			while(rs.next())
-				System.out.println(rs.getString(1)+" "+rs.getInt(2)); 
-			
-			con.close();
+				System.out.println(rs.getString(1)+" "+rs.getInt(2));
 		}catch(Exception e) {
 				e.printStackTrace();
 		}
