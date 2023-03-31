@@ -1,28 +1,41 @@
 package jdbc3;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+/**
+ * @author Kamalesh
+ *
+ */
 class MakeConnection {
-	Connection con; Statement stmt; ResultSet rs; MakeConnection() throws SQLException {
-		try{
+	Statement stmt; ResultSet rs; 
+	
+	private final String EMPLOYEETABLE = "employee";
+	
+	/**
+	 * 
+	 * @throws SQLException
+	 */
+	MakeConnection() throws SQLException {
+		try(Connection con = DriverManager.getConnection("jdbc:mysql://localhost/practicedb","root","kamalesh2202@cdw");){
 			Class.forName("com.mysql.cj.jdbc.Driver");
-			
-			con= DriverManager.getConnection("jdbc:mysql://localhost/practicedb","root","kamalesh2202@cdw");
 			
 			stmt = con.createStatement();
 			
-			int i1=stmt.executeUpdate("insert into employee values (001,'kamalesh',2672)");
-			int i2=stmt.executeUpdate("insert into employee values (001,'venkatesh',2253)");
-			int i3=stmt.executeUpdate("insert into employee values (001,'mugundhan',2413)");
+			stmt.executeUpdate("insert into "+ EMPLOYEETABLE +" values (001,'kamalesh',2672)");
+			stmt.executeUpdate("insert into "+ EMPLOYEETABLE +" values (001,'venkatesh',2253)");
+			stmt.executeUpdate("insert into "+ EMPLOYEETABLE +" values (001,'mugundhan',2413)");
 			
-			rs=stmt.executeQuery("select * from employee"); 
+			rs=stmt.executeQuery("select * from " + EMPLOYEETABLE); 
 			
 			while(rs.next())
 				System.out.println(rs.getInt(1)+ "\t" +rs.getString(2)+"\t"+rs.getInt(3)); 
 			
-			con.close();
 		}catch(Exception e) { 
-			System.out.println(e);
-			con.close();
+			e.printStackTrace();
 		}
 	} 
 }
