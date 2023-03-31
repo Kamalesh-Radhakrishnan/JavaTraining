@@ -13,7 +13,7 @@ import java.sql.Statement;
 class MakeConnection {
 	Statement stmt; ResultSet rs; 
 	
-	private final String EMPLOYEETABLE = "employee";
+	private final String EMPLOYEE_TABLE = "employee";
 	
 	/**
 	 * 
@@ -25,11 +25,11 @@ class MakeConnection {
 			
 			stmt = con.createStatement();
 			
-			stmt.executeUpdate("insert into "+ EMPLOYEETABLE +" values (001,'kamalesh',2672)");
-			stmt.executeUpdate("insert into "+ EMPLOYEETABLE +" values (001,'venkatesh',2253)");
-			stmt.executeUpdate("insert into "+ EMPLOYEETABLE +" values (001,'mugundhan',2413)");
+			stmt.executeUpdate("insert into "+ EMPLOYEE_TABLE +" values (001,'kamalesh',2672)");
+			stmt.executeUpdate("insert into "+ EMPLOYEE_TABLE +" values (001,'venkatesh',2253)");
+			stmt.executeUpdate("insert into "+ EMPLOYEE_TABLE +" values (001,'mugundhan',2413)");
 			
-			rs=stmt.executeQuery("select * from " + EMPLOYEETABLE); 
+			rs=stmt.executeQuery("select * from " + EMPLOYEE_TABLE); 
 			
 			while(rs.next())
 				System.out.println(rs.getInt(1)+ "\t" +rs.getString(2)+"\t"+rs.getInt(3)); 
