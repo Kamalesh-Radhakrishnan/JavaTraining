@@ -11,7 +11,7 @@ import java.sql.Statement;
  */
 class MakeConnection {
 	
-	private final String EMPTABLE = "emp";
+	private final String EMP_TABLE = "emp";
 	Statement stmt; 
 	ResultSet rs; 
 	
@@ -19,7 +19,7 @@ class MakeConnection {
 		try(Connection con= DriverManager.getConnection("jdbc:mysql://localhost/practicedb","root","kamalesh2202@cdw");){
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			stmt = con.createStatement();
-			rs = stmt.executeQuery("select * from " + EMPTABLE); 
+			rs = stmt.executeQuery("select * from " + EMP_TABLE); 
 			while(rs.next())
 				System.out.println(rs.getString(1)+" "+rs.getInt(2));
 		}catch(Exception e) {
